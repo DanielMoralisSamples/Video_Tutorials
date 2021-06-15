@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.6;
-import "alphachainio/chainlink-contracts@1.1.2/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
+import "smartcontractkit/chainlink-brownie-contracts@1.0.2/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
 
 contract Price_ETH{
 
