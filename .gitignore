@@ -2,3 +2,4 @@ venv
 .DS_Store
 .env
 08_Getting_MoralisData
+__pycache__

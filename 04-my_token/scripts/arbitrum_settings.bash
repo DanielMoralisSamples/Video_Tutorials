@@ -1,0 +1,2 @@
+#!/bin/bash
+brownie networks add Arbitrum arbitrum_rinkeby host='https://speedy-nodes-nyc.moralis.io/f9c80ab8c7ec06447269db5c/arbitrum/testnet' name='Arbitrum Rinky' chainid=421611 explorer='https://rinkeby-explorer.arbitrum.io/#/'
