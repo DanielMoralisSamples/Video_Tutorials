@@ -1,2 +1,2 @@
 #!/bin/bash
-brownie networks add Polygon mumbai_moralis host='https://speedy-nodes-nyc.moralis.io/f9c80ab8c7ec06447269db5c/polygon/mumbai' name='Mumbai (Moralis)' chainid=80001 explorer='https://explorer-mumbai.maticvigil.com/'
+brownie networks add Polygon mumbai_moralis host='YOUR LINK' name='Mumbai (Moralis)' chainid=80001 explorer='https://explorer-mumbai.maticvigil.com/'
