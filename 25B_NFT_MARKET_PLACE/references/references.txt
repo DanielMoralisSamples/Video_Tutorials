@@ -1,0 +1,7 @@
+NFTContract = 0x1AD0D2f5bb35c93F73aF693cdba9F6e09063c85d
+MarketPlce = 0x0a44da7ba3Ad75DD9548e7fB514B83aA3243033c
+0x5895bb17f7a58a29ad8657584c2e21fbb061e9d58625c5f0f687ab63945b5f49'
+
+Moralis.Cloud.define("test", async (request) => {
+    return request.params.message;
+} 
