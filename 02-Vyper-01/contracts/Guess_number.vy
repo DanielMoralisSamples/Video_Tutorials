@@ -28,8 +28,8 @@ def play(_guessed_number:uint256):
     assert msg.value == 10**18, "You should pay 1 ether to play"
     assert self.active == True, "The contract is unfortunately already void"
     if _guessed_number == self.secret_number:
-        send(msg.sender, self.balance)
         self.curr_balance =  0
         self.active = False
+        send(msg.sender, self.balance)
 
 
