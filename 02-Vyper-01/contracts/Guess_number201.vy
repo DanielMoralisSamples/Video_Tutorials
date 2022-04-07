@@ -72,6 +72,7 @@ def is_game_active(_game_id: uint256) -> bool:
 
 @external
 @payable
+
 def play_game(_game_id: uint256, _guessed_number:uint256) -> bool:
     assert msg.value == 10**18
     assert msg.sender != self.game_index[_game_id].game_owner
@@ -79,16 +80,17 @@ def play_game(_game_id: uint256, _guessed_number:uint256) -> bool:
     assert self.game_index[_game_id].is_active == True
     self.game_index[_game_id].game_balance = self.game_index[_game_id].game_balance + msg.value
     self.game_index[_game_id].guess_count = self.game_index[_game_id].guess_count + 1
+    _game_balance = self.game_index[_game_id].game_balance
     if _guessed_number == self.game_index[_game_id].secret_number:
-        send(msg.sender, (self.game_index[_game_id].game_balance * 99) / 100 )
-        send(self.contract_owner, self.game_index[_game_id].game_balance / 100)
         self.game_index[_game_id].game_balance = 0
         self.game_index[_game_id].is_active = False
+        send(msg.sender, (_game_balance * 99) / 100 )
+        send(self.contract_owner, _game_balance / 100)
         log Game_solved(msg.sender, _game_id, block.timestamp)
     else:
         if self.game_index[_game_id].guess_count == 10:
-            send(self.game_index[_game_id].game_owner, (self.game_index[_game_id].game_balance * 99)/100)
-            send(self.contract_owner, self.game_index[_game_id].game_balance / 100)
             self.game_index[_game_id].game_balance = 0
             self.game_index[_game_id].is_active = False
+            send(self.game_index[_game_id].game_owner, (_game_balance * 99)/100)
+            send(self.contract_owner, _game_balance / 100)
     return True
