@@ -1,3 +1,10 @@
+/* This contracts are offered for learning purposes only, to illustrate certain aspects of development regarding web3, 
+   they are not audited of course and not for use in any production environment. 
+   As a general rule they use transfer() instead of call() to avoid reentrancy,
+   which of course only works is the recipient is not intended to be a contract that executes complex logic on transfer.
+*/
+
+
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.6;
 
@@ -88,19 +95,20 @@ contract GuessNumber is VRFConsumerBase {
         game_index[game_id].guess_count = game_index[game_id].guess_count + 1;
         address payable player = payable(msg.sender);
         address payable creator = payable(game_index[game_id].game_owner);
+        uint _game_balance = game_index[game_id].game_balance;
         if (guessed_number == game_index[game_id].secret_number) {
-            player.transfer((game_index[game_id].game_balance * 99) / 100);
-            contract_owner.transfer(game_index[game_id].game_balance / 100);
             game_index[game_id].game_balance = 0;
             game_index[game_id].is_active = false;
+            player.transfer((_game_balance * 99) / 100);
+            contract_owner.transfer(_game_balance / 100);
             emit Game_solved(msg.sender, game_id, block.timestamp);
         }
         else {
             if (game_index[game_id].guess_count == 10){
-                creator.transfer((game_index[game_id].game_balance * 99) / 100);
-                contract_owner.transfer(game_index[game_id].game_balance / 100);
                 game_index[game_id].game_balance = 0;
                 game_index[game_id].is_active = false;
+                creator.transfer((_game_balance * 99) / 100);
+                contract_owner.transfer(_game_balance / 100);
                 emit Game_expired(game_index[game_id].game_owner, game_id, block.timestamp);
             }
         }
@@ -127,8 +135,9 @@ contract GuessNumber is VRFConsumerBase {
     function cancelGame(uint256 game_id) public returns (bool){
         require(msg.sender == game_index[game_id].game_owner);
         address payable creator = payable(msg.sender);
-        creator.transfer(game_index[game_id].game_balance);
+        uint _game_balance = game_index[game_id].game_balance;
         game_index[game_id].game_balance = 0;
+        creator.transfer(_game_balance);
         return true;
     }
 }
