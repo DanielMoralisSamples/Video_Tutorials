@@ -1,3 +1,10 @@
+/* This contracts are offered for learning purposes only, to illustrate certain aspects of development regarding web3, 
+   they are not audited of course and not for use in any production environment. 
+   They are not aiming to illustrate true randomness or reentrancy control, as a general rule they use transfer() instead of call() to avoid reentrancy,
+   which of course only works is the recipient is not intended to be a contract that executes complex logic on transfer.
+*/
+
+
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 
@@ -54,8 +61,8 @@ contract MarketPlace{
     function withdrawBalance() external {
         require(balances[msg.sender] > 0,"You don't have any balance to withdraw");
         uint amount = balances[msg.sender];
-        payable(msg.sender).transfer(amount);
         balances[msg.sender] = 0;
+        payable(msg.sender).transfer(amount);
         emit BalanceWithdrawn(msg.sender, amount);
     }
 
